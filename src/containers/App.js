@@ -13,7 +13,7 @@ import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    return <Main dispatch={this.props.dispatch} />;
+    return <Main state={this.props.state} dispatch={this.props.dispatch} />;
   }
 }
 /* Populated by react-webpack-redux:reducer
@@ -23,8 +23,9 @@ class App extends Component {
  */
 function mapStateToProps(state) { // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
-  const props = {};
-  return props;
+  return {
+      state
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {dispatch};

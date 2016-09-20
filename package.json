@@ -66,15 +66,21 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta.22",
-    "webpack-dev-server": "^2.0.0-beta"
+    "webpack-dev-server": "^2.0.0-beta",
+    "webpack-encoding-plugin": "^0.2.0"
   },
   "dependencies": {
+    "jquery": "^3.1.0",
+    "lodash": "^4.16.1",
+    "q": "^1.4.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "tsv": "^0.2.0",
+    "whatwg-fetch": "^1.0.0"
   }
 }
