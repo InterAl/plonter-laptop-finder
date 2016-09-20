@@ -10,7 +10,7 @@
 import { combineReducers } from 'redux';
 
 const reducers = {
-    laptops: require('./laptops.js').default
+    laptops: require('./laptopsReducer.js').default
 };
 
 const combined = combineReducers(reducers);

@@ -4,7 +4,8 @@ export default (state = initialState, action) => {
     let nextState = {...state};
 
     switch (action.type) {
-        default: {
+        case 'SET_LAPTOPS': {
+            nextState = action.payload;
         }
         break;
     }

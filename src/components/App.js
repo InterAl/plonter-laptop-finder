@@ -1,14 +1,15 @@
 import React from 'react';
 import './app.css';
-
-const yeomanImage = require('../images/yeoman.png');
+import bootstrap from '../thunks/bootstrap';
 
 class AppComponent extends React.Component {
+  componentDidMount() {
+      this.props.dispatch(bootstrap());
+  }
 
   render() {
     return (
       <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
         <div className="notice">
           Please edit <code>src/components/App.js</code> to get started!
         </div>
