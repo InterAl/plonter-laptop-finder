@@ -1,0 +1,9 @@
+{
+  "generator-react-webpack": {
+    "appName": "plonter-laptop-finder",
+    "style": "less",
+    "cssmodules": false,
+    "postcss": false,
+    "generatedWithVersion": 4
+  }
+}
