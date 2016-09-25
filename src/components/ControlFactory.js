@@ -1,25 +1,25 @@
 import CheckboxControl from './CheckboxControl';
 import SelectControl from './SelectControl';
 
-export default function createControl(option) {
+export default function createControl(filter) {
     let control;
 
-    switch (option.type) {
+    switch (filter.type) {
         case 'select':
-            control = createSelectControl(option);
+            control = createSelectControl(filter);
             break;
         case 'choose':
-            control = createCheckboxControl(option);
+            control = createCheckboxControl(filter);
             break;
     }
 
     return control;
 }
 
-function createSelectControl(option) {
-    return <SelectControl option={option} />;
+function createSelectControl(filter) {
+    return <SelectControl filter={filter} />;
 }
 
-function createCheckboxControl(option) {
-    return <CheckboxControl option={option} />;
+function createCheckboxControl(filter) {
+    return <CheckboxControl filter={filter} />;
 }

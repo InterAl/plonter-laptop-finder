@@ -4,7 +4,7 @@ export default (state = initialState, action) => {
     let nextState = [...state];
 
     switch (action.type) {
-        case 'SET_OPTIONS': {
+        case 'SET_FILTERS': {
             nextState = action.payload;
         }
         break;

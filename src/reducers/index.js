@@ -11,7 +11,8 @@ import { combineReducers } from 'redux';
 
 const reducers = {
     laptops: require('./laptopsReducer.js').default,
-    options: require('./optionsReducer.js').default
+    filters: require('./filtersReducer.js').default,
+    chosenFilters: require('./chosenFiltersReducer.js').default
 };
 
 const combined = combineReducers(reducers);

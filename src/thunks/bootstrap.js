@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import tsv from 'tsv';
 import {setLaptops} from '../actions/laptopsActions';
-import {setOptions} from '../actions/optionsActions';
+import {setFilters} from '../actions/filtersActions';
 import config from 'config';
 import Q from 'q';
 import $ from 'jquery';
@@ -12,19 +12,19 @@ export default function() {
 
 function bootstrap(dispatch) {
     Q.all([$.get(config.laptopsUrl),
-           $.get(config.optionsUrl)])
+           $.get(config.filtersUrl)])
     .spread(parseFiles)
     .then(parsedFiles => {
         dispatch(setLaptops(parsedFiles.laptops));
-        dispatch(setOptions(parsedFiles.options));
+        dispatch(setFilters(parsedFiles.filters));
     })
     .catch(err => console.error(err));
 }
 
-function parseFiles(laptops, options) {
+function parseFiles(laptops, filters) {
     return {
         laptops: parseFile(laptops),
-        options: processOptions(parseFile(options))
+        filters: processFilters(parseFile(filters))
     };
 }
 
@@ -43,16 +43,16 @@ function parseFile(file) {
     return tsvParsed;
 }
 
-function processOptions(options) {
-    return _.map(options, option => {
-        let processedOption = { ...option };
+function processFilters(filters) {
+    return _.map(filters, filter => {
+        let processedFilter = { ...filter };
 
-        _.each(processedOption,
-               (v, k) => processedOption[k] = _.trim(v))
+        _.each(processedFilter,
+               (v, k) => processedFilter[k] = _.trim(v))
 
-        if (processedOption.options)
-            processedOption.options = processedOption.options.split(',');
+        if (processedFilter.options)
+            processedFilter.options = processedFilter.options.split(',');
 
-        return processedOption;
+        return processedFilter;
     });
 }
