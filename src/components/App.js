@@ -2,29 +2,26 @@ import _ from 'lodash';
 import React from 'react';
 import './app.css';
 import bootstrap from '../thunks/bootstrap';
+import LaptopsList from './laptopsList';
 
 class AppComponent extends React.Component {
-  componentDidMount() {
-      this.props.dispatch(bootstrap());
-  }
+    componentDidMount() {
+        this.props.dispatch(bootstrap());
+    }
 
-  render() {
-    return (
-      <div className="index">
-        <div className="notice">
-            {
-                _(this.props.state.laptops).take(50).map(l => {
-                    return (
-                        <div>
-                            {JSON.stringify(l)}
-                        </div>
-                    )
-                }).value()
-            }
-        </div>
-      </div>
-    );
-  }
+    renderLaptopsList() {
+        let laptops = _(this.props.state.laptops).take(50).value();
+
+        return <LaptopsList laptops={laptops} />;
+    }
+
+    render() {
+        return (
+            <div className="index">
+                {this.renderLaptopsList()}
+            </div>
+        );
+    }
 }
 
 AppComponent.defaultProps = {
