@@ -14,8 +14,13 @@ export default class LaptopsRow extends Component {
         return config.imageUrl.replace('{{filename}}', laptop.image_file);
     }
 
+    getAddToCartUrl(laptop) {
+        return config.addToCart
+                     .replace('{{sku}}', laptop.sku);
+    }
+
     formatPrice(l) {
-        return `₪ ${numeral(l.price_total).format('0,0')}`;
+        return `${numeral(l.price_total).format('0,0')} NIS`;
     }
 
     render() {
@@ -25,6 +30,9 @@ export default class LaptopsRow extends Component {
             <div className='laptopRow'>
                 <div className='price'>
                     {this.formatPrice(laptop)}
+                    <a className='addToCart' href={this.getAddToCartUrl(laptop)}>
+                        Add to cart
+                    </a>
                 </div>
 
                 <div className='title'>

@@ -48,7 +48,7 @@ class Filters extends Component {
                         onClick={this.handleReset}
                         className='resetBtn'
                         type='button'
-                        value='reset' />
+                        value='Reset' />
                 </div>
             </div>
         );
