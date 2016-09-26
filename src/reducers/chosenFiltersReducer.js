@@ -13,10 +13,15 @@ export default (state = initialState, action) => {
             // }, {});
         }
         break;
+
         case 'CHOOSE_FILTER': {
             nextState[action.payload.filterName] = action.payload.filterValue;
         }
         break;
+
+        case 'RESET_CHOSEN_FILTERS': {
+            nextState = initialState;
+        }
     }
 
     return nextState;

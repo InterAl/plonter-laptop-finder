@@ -4,6 +4,7 @@ import './app.less';
 import bootstrap from '../thunks/bootstrap';
 import LaptopsList from './laptopsList';
 import Filters from './filters';
+import laptopsListSelector from '../selectors/laptopsListSelector';
 
 class AppComponent extends React.Component {
     componentDidMount() {
@@ -21,8 +22,9 @@ class AppComponent extends React.Component {
 
     renderLaptopsList() {
         let laptops = _(this.props.state.laptops).take(50).value();
+        let filteredLaptops = laptopsListSelector(this.props.state);
 
-        return <LaptopsList laptops={laptops} />;
+        return <LaptopsList laptops={filteredLaptops} />;
     }
 
     render() {

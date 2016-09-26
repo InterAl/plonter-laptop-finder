@@ -23,6 +23,7 @@ export default class LaptopsList extends Component {
 
         return (
             <div className='laptopsList'>
+                <div className='resultsCount'>Displaying <span>{rows.length}</span> results</div>
                 {rows}
             </div>
         );

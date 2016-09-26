@@ -21,10 +21,11 @@ class SelectControl extends Component {
     }
 
     handleSelectChange({target}) {
-        this.props.chooseFilter({
-            filterName: this.props.filter.engvariable,
-            filterValue: target.value
-        });
+        if (target.value !== -1)
+            this.props.chooseFilter({
+                filterName: this.props.filter.engvariable,
+                filterValue: target.value
+            });
     }
 
     render() {
@@ -36,9 +37,12 @@ class SelectControl extends Component {
                     {engvariable}
                 </div>
                 <select
-                    value={this.props.chosenFilter}
+                    value={this.props.chosenFilter || -1}
                     onChange={this.handleSelectChange}
                 >
+                    <option value={-1}>
+                        All
+                    </option>
                     {_.map(options, option => (
                         <option value={option}>
                             {option}
