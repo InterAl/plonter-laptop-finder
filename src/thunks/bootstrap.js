@@ -53,6 +53,8 @@ function processFilters(filters) {
         if (processedFilter.options)
             processedFilter.options = processedFilter.options.split(',');
 
+        processedFilter.sort = parseInt(processedFilter.sort);
+
         return processedFilter;
     });
 }
