@@ -23,7 +23,7 @@ function bootstrap(dispatch) {
 
 function parseFiles(laptops, filters) {
     return {
-        laptops: parseFile(laptops),
+        laptops: processLaptops(parseFile(laptops)),
         filters: processFilters(parseFile(filters))
     };
 }
@@ -41,6 +41,21 @@ function parseFile(file) {
     let tsvParsed = tsv.parse(tsvTxt);
 
     return tsvParsed;
+}
+
+function processLaptops(laptops) {
+    _.each(laptops, laptop => {
+        _.each(laptop, (v, k) => {
+            let val = laptop[k];
+
+            if (typeof val === 'string') {
+                let lowerKey = `${k}_lower`;
+                laptop[lowerKey] = laptop[k].toLowerCase();
+            }
+        })
+    });
+
+    return laptops;
 }
 
 function processFilters(filters) {
