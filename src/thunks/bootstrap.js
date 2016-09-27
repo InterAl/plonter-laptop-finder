@@ -44,6 +44,13 @@ function parseFile(file) {
 }
 
 function processLaptops(laptops) {
+    function extractWeight(title) {
+        let regex = new RegExp(/(([0-9]*[.])?[0-9]+)kg/gi);
+        let matches = regex.exec(title);
+        let match = matches && matches[1];
+        return match && parseInt(match);
+    }
+
     _.each(laptops, laptop => {
         _.each(laptop, (v, k) => {
             let val = laptop[k];
@@ -52,7 +59,9 @@ function processLaptops(laptops) {
                 let lowerKey = `${k}_lower`;
                 laptop[lowerKey] = laptop[k].toLowerCase();
             }
-        })
+        });
+
+        laptop.weight = extractWeight(laptop.title);
     });
 
     return laptops;
