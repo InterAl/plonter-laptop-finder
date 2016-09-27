@@ -19,12 +19,22 @@ export default createSelector(
 );
 
 function satisfies(filter, chosenFilter, laptop) {
-    if (!chosenFilter || chosenFilter === 'All')
+    if (!chosenFilter || chosenFilter === 'All' || chosenFilter.length === 0)
         return true;
 
     let field = filter.name;
 
-    let contains = _.includes(laptop[`${field}_lower`], chosenFilter.toLowerCase());
+    let contains;
+
+    if (filter.type === 'multiple') {
+        contains = _.some(chosenFilter, filter => laptopFieldContains(laptop, field, filter));
+    } else {
+        contains = laptopFieldContains(laptop, field, chosenFilter);
+    }
 
     return contains;
+}
+
+function laptopFieldContains(laptop, fieldName, filterValue) {
+    return _.includes(laptop[`${fieldName}_lower`], filterValue.toLowerCase());
 }

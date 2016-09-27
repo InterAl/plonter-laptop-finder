@@ -1,6 +1,7 @@
 import React from 'react';
 import CheckboxControl from './CheckboxControl';
 import SelectControl from './SelectControl';
+import MultipleSelectControl from './MultipleSelectControl';
 
 export default function createControl(filter, chosenFilter) {
     let control;
@@ -11,6 +12,9 @@ export default function createControl(filter, chosenFilter) {
             break;
         case 'choose':
             control = createCheckboxControl(filter, chosenFilter);
+            break;
+        case 'multiple':
+            control = createMultipleSelectControl(filter, chosenFilter);
             break;
     }
 
@@ -23,4 +27,8 @@ function createSelectControl(filter, chosenFilter) {
 
 function createCheckboxControl(filter, chosenFilter) {
     return <CheckboxControl filter={filter} chosenFilter={chosenFilter} />;
+}
+
+function createMultipleSelectControl(filter, chosenFilter) {
+    return <MultipleSelectControl filter={filter} chosenFilter={chosenFilter} />;
 }
