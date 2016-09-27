@@ -36,7 +36,7 @@ export default class LaptopsRow extends Component {
                 </div>
 
                 <div className='title'>
-                    {laptop.title}
+                    {laptop.description} - {laptop.title}
                 </div>
 
                 <div className='image'>
