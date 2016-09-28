@@ -27,7 +27,11 @@ function satisfies(filter, chosenFilter, laptop) {
     let contains;
 
     if (filter.type === 'multiple') {
-        contains = _.some(chosenFilter, filter => laptopFieldContains(laptop, field, filter));
+        if (filter.range) {
+            contains = _.some(chosenFilter, filter => isFieldInRange(laptop, field, filter));
+        } else {
+            contains = _.some(chosenFilter, filter => laptopFieldContains(laptop, field, filter));
+        }
     } else {
         contains = laptopFieldContains(laptop, field, chosenFilter);
     }
@@ -37,4 +41,8 @@ function satisfies(filter, chosenFilter, laptop) {
 
 function laptopFieldContains(laptop, fieldName, filterValue) {
     return _.includes(laptop[`${fieldName}_lower`], filterValue.toLowerCase());
+}
+
+function isFieldInRange(laptop, fieldName, value) {
+    return value[0] <= laptop[fieldName] && laptop[fieldName] <= value[1];
 }

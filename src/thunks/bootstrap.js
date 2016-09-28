@@ -79,6 +79,36 @@ function processFilters(filters) {
 
         processedFilter.sort = parseInt(processedFilter.sort);
 
+        if (processedFilter.engvariable === 'Weight') {
+            processedFilter.range = true;
+            processedFilter.options = extractWeightRanges(processedFilter.options);
+            processedFilter.name = 'weight';
+        }
+
+        if (processedFilter.engvariable === 'Price') {
+            processedFilter.range = true;
+            processedFilter.options = extractPriceRanges(processedFilter.options);
+            processedFilter.name = 'price_total';
+        }
+
         return processedFilter;
     });
+}
+
+function extractWeightRanges(options) {
+    let ranges = _.map(options, v => {
+        let values = v.split('-');
+        return _.map(values, v => parseFloat(v));
+    });
+
+    return ranges;
+}
+
+function extractPriceRanges(options) {
+    let ranges = _.map(options, v => {
+        let values = v.split(' ');
+        return _.map(values, v => parseFloat(v));
+    });
+
+    return ranges;
 }

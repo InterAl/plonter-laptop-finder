@@ -24,11 +24,19 @@ class MultipleSelectControl extends Component {
         super(props);
 
         this.state = {
-            chosenFilter: props.chosenFilter
+            chosenFilter: this.getValue(props.chosenFilter)
         };
 
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+    }
+
+    getValue(chosenFilter) {
+        if (this.props.filter.range) {
+            return `${chosenFilter[0]}#${chosenFilter[1]}`;
+        } else {
+            return chosenFilter;
+        }
     }
 
     handleSelectChange(value) {
@@ -43,17 +51,32 @@ class MultipleSelectControl extends Component {
     }
 
     handleBlur() {
+        let chosenFilter = this.state.chosenFilter;
+
+        if (this.props.filter.range) {
+            chosenFilter = _.map(chosenFilter, v => _.map(v.split('#'), v2 => parseFloat(v2)));
+        }
+
         this.props.chooseFilter({
             filterName: this.props.filter.engvariable,
-            filterValue: this.state.chosenFilter
+            filterValue: chosenFilter
         });
     }
 
     getSelectOptions() {
-        return _.map(this.props.filter.options, value => ({
-            value,
-            label: value
-        }));
+        return _.map(this.props.filter.options, value => {
+            if (this.props.filter.range) {
+                return {
+                    value: this.getValue(value),
+                    label: `${value[1]} - ${value[0]}`
+                }
+            } else {
+                return {
+                    value,
+                    label: value
+                }
+            }
+        });
     }
 
     render() {
