@@ -33,6 +33,7 @@ class RangeControl extends Component {
 
         this.handleSliderChange = this.handleSliderChange.bind(this);
         this.handleSliderAfterChange = this.handleSliderAfterChange.bind(this);
+        this.formatTooltip = this.formatTooltip.bind(this);
     }
 
     handleSliderChange([min, max]) {
@@ -88,6 +89,10 @@ class RangeControl extends Component {
         return [minValue, maxValue];
     }
 
+    formatTooltip(value) {
+        return this.getOptionValue(value);
+    }
+
     render() {
         let {chosenFilter, engvariable, hebvariable} = this.props.filter;
 
@@ -101,6 +106,7 @@ class RangeControl extends Component {
                     {hebvariable}
                 </div>
                 <Range
+                    tipFormatter={this.formatTooltip}
                     min={0}
                     max={max}
                     value={[this.state.min, this.state.max]}
