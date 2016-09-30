@@ -23,12 +23,7 @@ class MultipleSelectControl extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            chosenFilter: this.getValue(props.chosenFilter)
-        };
-
         this.handleSelectChange = this.handleSelectChange.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
     }
 
     getValue(chosenFilter) {
@@ -45,21 +40,9 @@ class MultipleSelectControl extends Component {
         if (values.length === 1 && values[0] === '')
             values = [];
 
-        this.setState({
-            chosenFilter: values
-        })
-    }
-
-    handleBlur() {
-        let chosenFilter = this.state.chosenFilter;
-
-        if (this.props.filter.range) {
-            chosenFilter = _.map(chosenFilter, v => _.map(v.split('#'), v2 => parseFloat(v2)));
-        }
-
         this.props.chooseFilter({
             filterName: this.props.filter.engvariable,
-            filterValue: chosenFilter
+            filterValue: values
         });
     }
 
@@ -90,9 +73,8 @@ class MultipleSelectControl extends Component {
                 <ReactSelect
                     multi
                     simpleValue
-                    onBlur={this.handleBlur}
                     onChange={this.handleSelectChange}
-                    value={this.state.chosenFilter}
+                    value={this.props.chosenFilter}
                     options={this.getSelectOptions()}>
                 </ReactSelect>
             </div>
