@@ -21,10 +21,12 @@ function bootstrap(dispatch) {
     .catch(err => console.error(err));
 }
 
-function parseFiles(laptops, filters) {
+function parseFiles(rawLaptops, filters) {
+    let laptops = processLaptops(parseFile(rawLaptops));
+
     return {
-        laptops: processLaptops(parseFile(laptops)),
-        filters: processFilters(parseFile(filters))
+        laptops,
+        filters: processFilters(parseFile(filters), laptops)
     };
 }
 
@@ -48,7 +50,32 @@ function processLaptops(laptops) {
         let regex = new RegExp(/(([0-9]*[.])?[0-9]+)kg/gi);
         let matches = regex.exec(title);
         let match = matches && matches[1];
-        return match && parseInt(match);
+        return match && parseFloat(match);
+    }
+
+    function extractScreenSize(title) {
+        let regex = new RegExp(/(([0-9]*[.])?[0-9]+) inch/gi);
+        let matches = regex.exec(title);
+        let match = matches && matches[1];
+        return match && parseFloat(match);
+    }
+
+    function extractStorageSize(title) {
+        let regex = new RegExp(/(([0-9]*[.])?[0-9]+)(gb|tb)/gi);
+        let matches = regex.exec(title);
+
+        while (matches !== null) {
+            let unit = matches[3].toLowerCase() === 'tb' ? 1000 : 1;
+            let size = parseInt(matches[1]);
+            let totalSize = unit * size;
+
+            if (totalSize > 100)
+                return totalSize;
+
+            matches = regex.exec(title);
+        }
+
+        return null;
     }
 
     _.each(laptops, laptop => {
@@ -62,12 +89,14 @@ function processLaptops(laptops) {
         });
 
         laptop.weight = extractWeight(laptop.title);
+        laptop.screenSize = extractScreenSize(laptop.title);
+        laptop.storageSize = extractStorageSize(laptop.title);
     });
 
     return laptops;
 }
 
-function processFilters(filters) {
+function processFilters(filters, laptops) {
     return _.map(filters, filter => {
         let processedFilter = { ...filter };
 
@@ -78,37 +107,35 @@ function processFilters(filters) {
             processedFilter.options = processedFilter.options.split(',');
 
         processedFilter.sort = parseInt(processedFilter.sort);
+        processedFilter.range = parseInt(processedFilter.range);
 
         if (processedFilter.engvariable === 'Weight') {
-            processedFilter.range = true;
-            processedFilter.options = extractWeightRanges(processedFilter.options);
+            processedFilter.options = extractRanges(processedFilter.options);
             processedFilter.name = 'weight';
-        }
-
-        if (processedFilter.engvariable === 'Price') {
-            processedFilter.range = true;
-            processedFilter.options = extractPriceRanges(processedFilter.options);
-            processedFilter.name = 'price_total';
+        } else if (processedFilter.engvariable === 'Screen Size') {
+            processedFilter.options = extractRanges(processedFilter.options);
+            processedFilter.name = 'screenSize';
+        } else if (processedFilter.engvariable === 'Capacity') {
+            processedFilter.name = 'storageSize';
+        } else if (processedFilter.engvariable === 'Price') {
+            processedFilter.options = extractPriceRanges(laptops);
         }
 
         return processedFilter;
     });
 }
 
-function extractWeightRanges(options) {
-    let ranges = _.map(options, v => {
-        let values = v.split('-');
-        return _.map(values, v => parseFloat(v));
-    });
-
-    return ranges;
-}
-
-function extractPriceRanges(options) {
+function extractRanges(options) {
     let ranges = _.map(options, v => {
         let values = v.split(' ');
         return _.map(values, v => parseFloat(v));
     });
 
-    return ranges;
+    return _(ranges).flatten().uniq().value();
+}
+
+function extractPriceRanges(laptops) {
+    let minPrice = _.minBy(laptops, l => l.price_total);
+    let maxPrice = _.maxBy(laptops, l => l.price_total);
+    return [minPrice.price_total, maxPrice.price_total];
 }

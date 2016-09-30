@@ -27,8 +27,8 @@ function satisfies(filter, chosenFilter, laptop) {
     let contains;
 
     if (filter.type === 'multiple') {
-        if (filter.range) {
-            contains = _.some(chosenFilter, filter => isFieldInRange(laptop, field, filter));
+        if (filter.range > 0) {
+            contains = isFieldInRange(laptop, field, chosenFilter);
         } else {
             contains = _.some(chosenFilter, filter => laptopFieldContains(laptop, field, filter));
         }
@@ -36,6 +36,9 @@ function satisfies(filter, chosenFilter, laptop) {
         contains = laptopFieldContains(laptop, field, chosenFilter);
     }
 
+    // if (!contains)
+    //     console.log('not satisfied', {filter, chosenFilter, laptop});
+    //
     return contains;
 }
 
@@ -43,6 +46,20 @@ function laptopFieldContains(laptop, fieldName, filterValue) {
     return _.includes(laptop[`${fieldName}_lower`], filterValue.toLowerCase());
 }
 
-function isFieldInRange(laptop, fieldName, value) {
-    return value[0] <= laptop[fieldName] && laptop[fieldName] <= value[1];
+function isFieldInRange(laptop, fieldName, chosenFilter) {
+    let {min, max} = chosenFilter;
+
+    if (fieldName === 'storageSize') {
+        min = calculateStorageSize(min);
+        max = calculateStorageSize(max);
+    }
+
+    return min <= laptop[fieldName] && laptop[fieldName] <= max;
+}
+
+function calculateStorageSize(str) {
+    let unit = str.substring(str.length - 2);
+    let unitNum = unit.toLowerCase() === 'tb' ? 1000 : 1;
+    let size = parseInt(str);
+    return size * unitNum;
 }

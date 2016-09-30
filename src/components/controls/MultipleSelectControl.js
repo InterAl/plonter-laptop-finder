@@ -85,7 +85,7 @@ class MultipleSelectControl extends Component {
         return (
             <div className='multiSelectControl'>
                 <div className='label'>
-                    {engvariable}
+                    {hebvariable}
                 </div>
                 <ReactSelect
                     multi

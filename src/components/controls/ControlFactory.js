@@ -2,6 +2,7 @@ import React from 'react';
 import CheckboxControl from './CheckboxControl';
 import SelectControl from './SelectControl';
 import MultipleSelectControl from './MultipleSelectControl';
+import RangeControl from './RangeControl';
 
 export default function createControl(filter, chosenFilter) {
     let control;
@@ -14,7 +15,10 @@ export default function createControl(filter, chosenFilter) {
             control = createCheckboxControl(filter, chosenFilter);
             break;
         case 'multiple':
-            control = createMultipleSelectControl(filter, chosenFilter);
+            if (filter.range > 0)
+                control = createRangeControl(filter, chosenFilter);
+            else
+                control = createMultipleSelectControl(filter, chosenFilter);
             break;
     }
 
@@ -31,4 +35,8 @@ function createCheckboxControl(filter, chosenFilter) {
 
 function createMultipleSelectControl(filter, chosenFilter) {
     return <MultipleSelectControl filter={filter} chosenFilter={chosenFilter} />;
+}
+
+function createRangeControl(filter, chosenFilter) {
+    return <RangeControl filter={filter} chosenFilter={chosenFilter} />;
 }
