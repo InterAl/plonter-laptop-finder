@@ -14,8 +14,8 @@ export default class LaptopsRow extends Component {
         return config.imageUrl.replace('{{filename}}', laptop.image_file);
     }
 
-    getAddToCartUrl(laptop) {
-        return config.addToCart
+    getProductUrl(laptop) {
+        return config.productLink
                      .replace('{{sku}}', laptop.sku);
     }
 
@@ -30,8 +30,9 @@ export default class LaptopsRow extends Component {
             <div className='laptopRow'>
                 <div className='price'>
                     {this.formatPrice(laptop)}
-                    <a className='addToCart' href={this.getAddToCartUrl(laptop)}>
-                        Add to cart
+                    <br/>
+                    <a className='productLink' target='_blank' href={this.getProductUrl(laptop)}>
+                        {laptop.sku}
                     </a>
                 </div>
 
