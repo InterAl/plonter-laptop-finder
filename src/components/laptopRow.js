@@ -32,12 +32,12 @@ export default class LaptopsRow extends Component {
                     {this.formatPrice(laptop)}
                     <br/>
                     <a className='productLink' target='_blank' href={this.getProductUrl(laptop)}>
-                        {laptop.sku}
+                        קישור למוצר
                     </a>
                 </div>
 
                 <div className='title'>
-                    {laptop.description} - {laptop.title}
+                    {laptop.description} - {laptop.sku} - {laptop.title}
                 </div>
 
                 <div className='image'>

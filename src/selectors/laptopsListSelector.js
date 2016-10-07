@@ -43,7 +43,7 @@ function satisfies(filter, chosenFilter, laptop) {
 }
 
 function laptopFieldContains(laptop, fieldName, filterValue) {
-    return _.includes(laptop[`${fieldName}_lower`], filterValue.toLowerCase());
+    return _.includes(laptop[`${fieldName}_lower`], filterValue.toString().toLowerCase());
 }
 
 function isFieldInRange(laptop, fieldName, chosenFilter) {
