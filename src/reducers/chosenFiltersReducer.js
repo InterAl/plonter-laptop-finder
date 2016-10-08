@@ -7,15 +7,6 @@ export default (state = initialState, action) => {
 
     switch (action.type) {
         case 'SET_FILTERS': {
-            nextState = _.reduce(action.payload, (p, c) => {
-                if (c.range > 0) {
-                    p[c.engvariable] = {
-                        min: c.options[0],
-                        max: _.last(c.options)
-                    };
-                }
-                return p;
-            }, {});
         }
         break;
 

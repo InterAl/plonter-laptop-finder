@@ -16,19 +16,24 @@ class RangeControl extends Component {
         chooseFilter: PropTypes.func.isRequired
     };
 
-    static defaultProps = {
-        chosenFilter: {
-            min: 0,
-            max: 1
-        }
-    };
+    getDefaultChosenFilter(props) {
+        let {filter} = props;
+
+        return props.chosenFilter || {
+            min: _.first(filter.options),
+            max: _.last(filter.options)
+        };
+    }
 
     constructor(props) {
         super();
 
+        const chosenFilter = this.getDefaultChosenFilter(props);
+
         this.state = {
-            min: this.getOptionIdx(props.chosenFilter.min, props),
-            max: this.getOptionIdx(props.chosenFilter.max, props)
+            min: this.getOptionIdx(chosenFilter.min, props),
+            max: this.getOptionIdx(chosenFilter.max, props),
+            chosenFilter
         };
 
         this.handleSliderChange = this.handleSliderChange.bind(this);
@@ -52,7 +57,7 @@ class RangeControl extends Component {
 
     getMarks() {
         let options = this.props.filter.options;
-        let chosenFilter = this.props.chosenFilter;
+        let chosenFilter = this.state.chosenFilter;
 
         let minIdx = chosenFilter && this.getOptionIdx(chosenFilter.min);
         let maxIdx = chosenFilter && this.getOptionIdx(chosenFilter.max);
@@ -80,9 +85,9 @@ class RangeControl extends Component {
     getRangeValues() {
         let minValue, maxValue;
 
-        if (this.props.chosenFilter) {
-            minValue = this.getOptionIdx(this.props.chosenFilter.min);
-            maxValue = this.getOptionIdx(this.props.chosenFilter.max);
+        if (this.state.chosenFilter) {
+            minValue = this.getOptionIdx(this.state.chosenFilter.min);
+            maxValue = this.getOptionIdx(this.state.chosenFilter.max);
         } else {
         }
 
