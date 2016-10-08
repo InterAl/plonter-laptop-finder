@@ -10,9 +10,9 @@ export default class LaptopsList extends Component {
         laptops: PropTypes.array.isRequired
     };
 
-    renderRow(laptop) {
+    renderRow(laptop, idx) {
         return (
-            <div className='row'>
+            <div className='row' key={idx}>
                 <LaptopRow laptop={laptop} />
             </div>
         );

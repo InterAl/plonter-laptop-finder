@@ -63,7 +63,7 @@ class MultipleSelectControl extends Component {
     }
 
     render() {
-        let {options, engvariable, hebvariable} = this.props.filter;
+        let {hebvariable} = this.props.filter;
 
         return (
             <div className='multiSelectControl'>
@@ -82,7 +82,7 @@ class MultipleSelectControl extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {
 
     };

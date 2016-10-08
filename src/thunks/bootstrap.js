@@ -32,11 +32,11 @@ function parseFiles(rawLaptops, filters) {
 
 function parseFile(file) {
     let regex = new RegExp(/<pre>(.*?)<\/pre>/ig);
-    let tsvTxt = "";
+    let tsvTxt = ''
     let match = regex.exec(file);
 
     while (match != null) {
-        tsvTxt += match[1] + "\n";
+        tsvTxt += match[1] + '\n';
         match = regex.exec(file);
     }
 
@@ -138,7 +138,6 @@ function extractPriceRanges(laptops) {
     let minPrice = _.minBy(laptops, l => l.price_total);
     let maxPrice = _.maxBy(laptops, l => l.price_total);
     let step = 500;
-    let start = minPrice.price_total;
     let range = [];
 
     for (var i = minPrice.price_total; i < maxPrice.price_total; i += step) {

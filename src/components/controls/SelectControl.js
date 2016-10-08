@@ -30,7 +30,7 @@ class SelectControl extends Component {
     }
 
     render() {
-        let {options, engvariable, hebvariable} = this.props.filter;
+        let {options, engvariable} = this.props.filter;
 
         return (
             <div className='selectControl'>
@@ -55,7 +55,7 @@ class SelectControl extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {
 
     };

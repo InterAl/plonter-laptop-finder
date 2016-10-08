@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import React from 'react';
 import './app.less';
 import bootstrap from '../thunks/bootstrap';
@@ -21,7 +21,6 @@ class AppComponent extends React.Component {
     }
 
     renderLaptopsList() {
-        let laptops = _(this.props.state.laptops).take(50).value();
         let filteredLaptops = laptopsListSelector(this.props.state);
 
         return <LaptopsList laptops={filteredLaptops} />;

@@ -7,7 +7,7 @@ let {PropTypes} = React;
 export default class FilterRow extends Component {
     static propTypes = {
         filter: PropTypes.object,
-        chosenFilter: PropTypes.string
+        chosenFilter: PropTypes.any
     };
 
     createControl() {

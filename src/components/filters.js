@@ -26,11 +26,11 @@ class Filters extends Component {
         this.props.reset();
     }
 
-    renderFilterRow(filter) {
+    renderFilterRow(filter, idx) {
         let chosenFilter = this.props.chosenFilters[filter.engvariable];
 
         return (
-            <FilterRow filter={filter} chosenFilter={chosenFilter} />
+            <FilterRow key={idx} filter={filter} chosenFilter={chosenFilter} />
         );
     }
 
@@ -55,7 +55,7 @@ class Filters extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {};
 }
 

@@ -94,7 +94,7 @@ class RangeControl extends Component {
     }
 
     render() {
-        let {chosenFilter, engvariable, hebvariable} = this.props.filter;
+        let {hebvariable} = this.props.filter;
 
         let marks = this.getMarks();
         let min = 0;
@@ -107,7 +107,7 @@ class RangeControl extends Component {
                 </div>
                 <Range
                     tipFormatter={this.formatTooltip}
-                    min={0}
+                    min={min}
                     max={max}
                     value={[this.state.min, this.state.max]}
                     range={true}
@@ -121,7 +121,7 @@ class RangeControl extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {
 
     };

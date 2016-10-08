@@ -28,7 +28,7 @@ class CheckboxControl extends Component {
     }
 
     render() {
-        let {options, engvariable, hebvariable} = this.props.filter;
+        let {engvariable} = this.props.filter;
 
         return (
             <div className='checkboxControl'>
@@ -45,7 +45,7 @@ class CheckboxControl extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {
 
     };
