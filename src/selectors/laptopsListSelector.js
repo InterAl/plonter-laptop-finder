@@ -32,6 +32,8 @@ function satisfies(filter, chosenFilter, laptop) {
         } else {
             contains = _.some(chosenFilter, filter => laptopFieldContains(laptop, field, filter));
         }
+    } else if (filter.type === 'freeText') {
+        contains = freeTextSearch(laptop, field, chosenFilter);
     } else {
         contains = laptopFieldContains(laptop, field, chosenFilter);
     }
@@ -40,6 +42,12 @@ function satisfies(filter, chosenFilter, laptop) {
     //     console.log('not satisfied', {filter, chosenFilter, laptop});
     //
     return contains;
+}
+
+function freeTextSearch(laptop, fields, value) {
+    let fieldValues = _.map(fields, f => laptop[`${f}_lower`]);
+    let words = value.split(' ');
+    return _.every(words, w => _.some(fieldValues, fv => _.includes(fv, w.toLowerCase())));
 }
 
 function laptopFieldContains(laptop, fieldName, filterValue) {

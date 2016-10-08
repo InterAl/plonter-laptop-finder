@@ -3,6 +3,7 @@ import CheckboxControl from './CheckboxControl';
 import SelectControl from './SelectControl';
 import MultipleSelectControl from './MultipleSelectControl';
 import RangeControl from './RangeControl';
+import FreeTextControl from './FreeTextControl';
 
 export default function createControl(filter, chosenFilter) {
     let control;
@@ -19,6 +20,9 @@ export default function createControl(filter, chosenFilter) {
                 control = createRangeControl(filter, chosenFilter);
             else
                 control = createMultipleSelectControl(filter, chosenFilter);
+            break;
+        case 'freeText':
+            control = createFreeTextControl(filter, chosenFilter);
             break;
     }
 
@@ -39,4 +43,8 @@ function createMultipleSelectControl(filter, chosenFilter) {
 
 function createRangeControl(filter, chosenFilter) {
     return <RangeControl filter={filter} chosenFilter={chosenFilter} />;
+}
+
+function createFreeTextControl(filter, chosenFilter) {
+    return <FreeTextControl filter={filter} chosenFilter={chosenFilter} />;
 }

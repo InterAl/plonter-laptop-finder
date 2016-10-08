@@ -97,7 +97,7 @@ function processLaptops(laptops) {
 }
 
 function processFilters(filters, laptops) {
-    return _.map(filters, filter => {
+    let processed = _.map(filters, filter => {
         let processedFilter = { ...filter };
 
         _.each(processedFilter,
@@ -123,6 +123,17 @@ function processFilters(filters, laptops) {
 
         return processedFilter;
     });
+
+    let freeTextFilter = {
+        engvariable: 'חיפוש חופשי',
+        type: 'freeText',
+        sort: 0,
+        name: ['description', 'title', 'sku', 'remarks']
+    };
+
+    processed.unshift(freeTextFilter);
+
+    return processed;
 }
 
 function extractRanges(options) {
