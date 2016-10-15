@@ -7,14 +7,17 @@ export default createSelector(
     state => state.chosenFilters,
 
     (laptops, filters, chosenFilters) => {
-        return _.filter(laptops, laptop => {
-            let satisfiesAll = _.every(filters, filter => {
-                let chosenFilter = chosenFilters[filter.engvariable];
-                return satisfies(filter, chosenFilter, laptop);
-            });
+        return _(laptops)
+            .filter(laptop => {
+                let satisfiesAll = _.every(filters, filter => {
+                    let chosenFilter = chosenFilters[filter.engvariable];
+                    return satisfies(filter, chosenFilter, laptop);
+                });
 
-            return satisfiesAll;
-        });
+                return satisfiesAll;
+            })
+            .sortBy(['price_total'])
+            .value();
     }
 );
 
