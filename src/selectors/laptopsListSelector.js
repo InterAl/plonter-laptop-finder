@@ -37,6 +37,8 @@ function satisfies(filter, chosenFilter, laptop) {
         }
     } else if (filter.type === 'freeText') {
         contains = freeTextSearch(laptop, field, chosenFilter);
+    } else if (filter.type === 'choose') {
+        contains = containsChooseFilter(laptop, field, filter, chosenFilter)
     } else {
         contains = laptopFieldContains(laptop, field, chosenFilter);
     }
@@ -66,6 +68,12 @@ function isFieldInRange(laptop, fieldName, chosenFilter) {
     }
 
     return min <= laptop[fieldName] && laptop[fieldName] <= max;
+}
+
+function containsChooseFilter(laptop, field, filter, chosenFilter) {
+    let value = _.first(filter.options);
+    let contains = laptopFieldContains(laptop, field, value);
+    return chosenFilter ? contains : !contains;
 }
 
 function calculateStorageSize(str) {
