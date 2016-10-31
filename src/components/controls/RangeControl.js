@@ -66,7 +66,9 @@ class RangeControl extends Component {
             let displayLabel = idx === 0 ||
                                idx === options.length - 1 ||
                                idx === minIdx ||
-                               idx === maxIdx;
+                               idx === maxIdx ||
+                               idx === this.state.min ||
+                               idx === this.state.max;
 
             acc[idx] = {label: displayLabel ? cur : null};
 
