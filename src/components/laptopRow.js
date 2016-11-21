@@ -41,6 +41,11 @@ export default class LaptopsRow extends Component {
 
                 <div className='title'>
                     {laptop.description} - {laptop.sku} - {laptop.title}
+                    {laptop.remarks && (
+                    <div className='remarks'>
+                        <br />
+                        {laptop.remarks}
+                    </div>)}
                 </div>
 
                 <div className='image'>
