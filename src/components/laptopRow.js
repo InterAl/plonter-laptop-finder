@@ -20,7 +20,10 @@ export default class LaptopsRow extends Component {
     }
 
     formatPrice(l) {
-        return `${numeral(l.price_total).format('0,0')} NIS`;
+        let price = l.price_total;
+        let cashPrice = 0.98 * price;
+
+        return `${numeral(price).format('0,0')} / ${numeral(cashPrice).format('0,0')} ₪`;
     }
 
     render() {
