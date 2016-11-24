@@ -71,7 +71,6 @@
     "webpack-encoding-plugin": "^0.2.0"
   },
   "dependencies": {
-    "es6-object-assign": "^1.0.3",
     "jquery": "^3.1.0",
     "lodash": "^4.16.1",
     "numeral": "^1.5.3",
