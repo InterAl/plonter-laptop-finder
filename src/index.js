@@ -6,6 +6,8 @@ import App from './containers/App';
 import 'babel-polyfill';
 import 'whatwg-fetch';
 
+require('es6-object-assign').polyfill();
+
 const store = configureStore();
 
 render(
