@@ -18,13 +18,25 @@ export default class LaptopsList extends Component {
         );
     }
 
-    render() {
+    renderResults() {
         let rows = _.map(this.props.laptops, this.renderRow);
 
         return (
-            <div className='laptopsList'>
+            <div>
                 <div className='resultsCount'>Displaying <span>{rows.length}</span> results</div>
                 {rows}
+            </div>
+        );
+    }
+
+    renderSpinner() {
+
+    }
+
+    render() {
+        return (
+            <div className='laptopsList'>
+                {this.renderResults()}
             </div>
         );
     }

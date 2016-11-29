@@ -23,7 +23,7 @@ export default class LaptopsRow extends Component {
         let price = l.price_total;
         let cashPrice = 0.98 * price;
 
-        return `${numeral(price).format('0,0')} / ${numeral(cashPrice).format('0,0')} ₪`;
+        return `₪ ${numeral(price).format('0,0')} / ${numeral(cashPrice).format('0,0')}`;
     }
 
     render() {
