@@ -73,7 +73,7 @@ class WebpackBaseConfig {
       devtool: 'eval',
       devServer: {
         contentBase: './src/',
-        publicPath: '/assets/',
+        publicPath: 'http://localhost:6676/assets/',
         historyApiFallback: true,
         hot: true,
         inline: true,
@@ -172,7 +172,7 @@ class WebpackBaseConfig {
       output: {
         path: path.resolve('./dist/assets'),
         filename: 'app.js',
-        publicPath: './assets/'
+        publicPath: 'http://localhost:6676/assets/'
       },
       plugins: [],
       resolve: {

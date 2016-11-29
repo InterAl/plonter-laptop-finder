@@ -13,7 +13,7 @@ class WebpackDevConfig extends WebpackBaseConfig {
     this.config = {
       devtool: 'source-map',
       entry: [
-        'webpack-dev-server/client?http://0.0.0.0:6676/',
+        'webpack-dev-server/client?http://127.0.0.1:6676/',
         'webpack/hot/only-dev-server',
         './index.js'
       ],
