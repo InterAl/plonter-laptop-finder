@@ -31,7 +31,7 @@ class FreeTextControl extends Component {
 
         return (
             <div className='freeTextControl'>
-                <div className='label'>
+                <div className='lp-label'>
                     {engvariable}
                 </div>
                 <input

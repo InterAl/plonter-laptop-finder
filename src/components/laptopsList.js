@@ -12,7 +12,7 @@ export default class LaptopsList extends Component {
 
     renderRow(laptop, idx) {
         return (
-            <div className='row' key={idx}>
+            <div className='lp-row' key={idx}>
                 <LaptopRow laptop={laptop} />
             </div>
         );

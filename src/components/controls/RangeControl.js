@@ -109,7 +109,7 @@ class RangeControl extends Component {
 
         return (
             <div className='selectControl'>
-                <div className='label'>
+                <div className='lp-label'>
                     {hebvariable}
                 </div>
                 <Range

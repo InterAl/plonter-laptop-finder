@@ -32,7 +32,7 @@ class CheckboxControl extends Component {
 
         return (
             <div className='checkboxControl'>
-                <div className='label'>
+                <div className='lp-label'>
                     {engvariable}
                 </div>
                 <input

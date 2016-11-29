@@ -34,7 +34,7 @@ class SelectControl extends Component {
 
         return (
             <div className='selectControl'>
-                <div className='label'>
+                <div className='lp-label'>
                     {engvariable}
                 </div>
                 <select
