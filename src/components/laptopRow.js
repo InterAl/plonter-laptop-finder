@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import config from 'config';
 import numeral from 'numeral';
+import $ from 'jquery';
 import './laptopRow.less';
 
 let {PropTypes} = React;
@@ -10,8 +11,31 @@ export default class LaptopsRow extends Component {
         laptop: PropTypes.object.isRequired
     };
 
-    getImageUrl(laptop) {
-        return config.imageUrl.replace('{{filename}}', laptop.image_file);
+    constructor() {
+        super();
+
+        this.state = {
+            imageUrl: null
+        };
+    }
+
+    componentWillReceiveProps(props) {
+        this.fetchImage(props);
+    }
+
+    fetchImage(props) {
+        let {laptop} = props;
+
+        let url = config.imageUrl.replace('{{filename}}', laptop.image_file);
+        let defaultImageUrl = config.defaultImageUrl.replace('{{mfg}}', laptop.description);
+
+        if (laptop.image_file) {
+            $.get(url)
+                .done(() => this.setState({imageUrl: url}))
+                .fail(() => this.setState({imageUrl: defaultImageUrl}));
+        } else {
+            this.setState({imageUrl: defaultImageUrl});
+        }
     }
 
     getProductUrl(laptop) {
@@ -49,7 +73,7 @@ export default class LaptopsRow extends Component {
                 </div>
 
                 <div className='image'>
-                    <img src={this.getImageUrl(laptop)} />
+                    <img src={this.state.imageUrl} />
                 </div>
             </div>
         );
