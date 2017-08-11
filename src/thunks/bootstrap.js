@@ -12,13 +12,17 @@ export default function() {
     return bootstrap;
 }
 
+const query = queryString.parse(location.search);
+
 function bootstrap(dispatch) {
     Q.all([$.get(config.laptopsUrl),
            $.get(config.filtersUrl)])
     .spread(parseFiles)
     .then(({laptops, filters}) => {
         dispatch(setLaptops(laptops));
-        dispatch(setFilters(filters));
+
+        const restrictedFields = restrictFiltersFromQuerystring(filters);
+        dispatch(setFilters(restrictedFields));
 
         const presetFilters = presetFilterValuesFromQuerystring(filters);
 
@@ -33,10 +37,20 @@ function bootstrap(dispatch) {
 }
 
 function restrictFiltersFromQuerystring(filters) {
+    const restrictedFields = query.fields && query.fields.split(',');
+
+    if (restrictedFields) {
+        const fields = _.filter(filters, filter => {
+            return _.includes(restrictedFields, filter.engvariable);
+        });
+
+        return fields;
+    }
+
+    return filters;
 }
 
 function presetFilterValuesFromQuerystring(filters) {
-    const query = queryString.parse(location.search);
     const allFilterNames = _.map(filters, 'engvariable');
     const filtersFromQs = _(allFilterNames)
         .map(filterName => ({ filterName, value: query[filterName] }))
