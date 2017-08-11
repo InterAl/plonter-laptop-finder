@@ -2,9 +2,11 @@ import _ from 'lodash';
 import tsv from 'tsv';
 import {setLaptops} from '../actions/laptopsActions';
 import {setFilters} from '../actions/filtersActions';
+import {chooseFilter} from '../actions/chosenFiltersActions';
 import config from 'config';
 import Q from 'q';
 import $ from 'jquery';
+import queryString from 'query-string';
 
 export default function() {
     return bootstrap;
@@ -14,11 +16,35 @@ function bootstrap(dispatch) {
     Q.all([$.get(config.laptopsUrl),
            $.get(config.filtersUrl)])
     .spread(parseFiles)
-    .then(parsedFiles => {
-        dispatch(setLaptops(parsedFiles.laptops));
-        dispatch(setFilters(parsedFiles.filters));
+    .then(({laptops, filters}) => {
+        dispatch(setLaptops(laptops));
+        dispatch(setFilters(filters));
+
+        const presetFilters = presetFilterValuesFromQuerystring(filters);
+
+        _.each(presetFilters, filter => {
+            dispatch(chooseFilter({
+                filterName: filter.filterName,
+                filterValue: filter.value
+            }))
+        });
     })
     .catch(err => console.error(err));
+}
+
+function restrictFiltersFromQuerystring(filters) {
+}
+
+function presetFilterValuesFromQuerystring(filters) {
+    const query = queryString.parse(location.search);
+    const allFilterNames = _.map(filters, 'engvariable');
+    const filtersFromQs = _(allFilterNames)
+        .map(filterName => ({ filterName, value: query[filterName] }))
+        .filter(f => f.value)
+        .map(f => ({...f, value: f.value.split(',')}))
+        .value();
+
+    return filtersFromQs;
 }
 
 function parseFiles(rawLaptops, filters) {
