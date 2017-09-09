@@ -10,6 +10,10 @@ export default class LaptopsList extends Component {
         laptops: PropTypes.array.isRequired
     };
 
+    shouldComponentUpdate(nextProps) {
+        return this.props.laptops !== nextProps.laptops;
+    }
+
     renderRow(laptop, idx) {
         return (
             <div className='lp-row' key={idx}>
@@ -27,10 +31,6 @@ export default class LaptopsList extends Component {
                 {rows}
             </div>
         );
-    }
-
-    renderSpinner() {
-
     }
 
     render() {

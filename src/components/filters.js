@@ -4,6 +4,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import FilterRow from './filterRow';
 import {resetChosenFilters} from '../actions/chosenFiltersActions';
+import ResetButton from './icons/resetIcon';
+import { StickyContainer, Sticky } from 'react-sticky';
+import cx from 'classnames';
 import './filters.less';
 
 let {PropTypes} = React;
@@ -41,16 +44,23 @@ class Filters extends Component {
                         .value();
 
         return (
-            <div className='filters'>
-                <div className='filters-fixed'>
-                    {rows}
-                    <input
-                        onClick={this.handleReset}
-                        className='resetBtn'
-                        type='button'
-                        value='Reset' />
-                </div>
-            </div>
+            <StickyContainer>
+                <Sticky>
+                    {({style, isSticky}) => (
+                        <div className={cx('filters', {isSticky})}>
+                            <div style={style} className='filters-fixed'>
+                                {rows}
+                                <br/>
+                                <br/>
+                                <br/>
+                                {/* <div className='resetBtnWrapper'> */}
+                                {/*     <ResetButton width={24} height={24} onClick={this.handleReset}/> */}
+                                {/* </div> */}
+                            </div>
+                        </div>
+                    )}
+                </Sticky>
+            </StickyContainer>
         );
     }
 }

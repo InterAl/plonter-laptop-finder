@@ -1,15 +1,13 @@
+@import (reference) './mobile.css';
+
 .index {
     display: flex;
     font-family: arial;
     height: 100%;
     direction: ltr;
-
-    .filters {
-        flex: 2;
-    }
+    position: relative;
 
     .laptopsList {
-        flex: 9;
         overflow-y: auto;
         overflow-x: hidden;
         height: 100%;
@@ -17,5 +15,22 @@
 
     .lp-label {
         margin-bottom: 6px;
+    }
+
+    .filterIconBtnWrapper {
+        position: fixed;
+        bottom: 6px;
+        right: 6px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .filterIconBtnWrapper {
+            right: initial;
+            left: 0;
+        }
+    }
+
+    .spinner {
+        margin: 120px auto;
     }
 }
