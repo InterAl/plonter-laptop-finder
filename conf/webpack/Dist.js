@@ -21,7 +21,11 @@ class WebpackDistConfig extends WebpackBaseConfig {
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.NoErrorsPlugin()
-      ]
+      ],
+      externals: {
+        '$':'jQuery',
+        'jquery':'jQuery'
+      }
     };
   }
 
